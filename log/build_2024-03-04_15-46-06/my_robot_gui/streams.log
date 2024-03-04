@@ -1,0 +1,54 @@
+[0.633s] Invoking command in '/home/sreylenchab/DCLAB/my_robot_gui': PYTHONPATH=/home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/prefix_override:/home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/my_robot_gui build --build-base /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build install --record /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/install.log --install-scripts $base/lib/my_robot_gui --single-version-externally-managed
+[0.778s] /usr/lib/python3/dist-packages/setuptools/dist.py:723: UserWarning: Usage of dash-separated 'script-dir' will not be supported in future versions. Please use the underscore name 'script_dir' instead
+[0.778s]   warnings.warn(
+[0.784s] running egg_info
+[0.784s] creating build/my_robot_gui/my_robot_gui.egg-info
+[0.784s] writing build/my_robot_gui/my_robot_gui.egg-info/PKG-INFO
+[0.785s] writing dependency_links to build/my_robot_gui/my_robot_gui.egg-info/dependency_links.txt
+[0.785s] writing entry points to build/my_robot_gui/my_robot_gui.egg-info/entry_points.txt
+[0.785s] writing requirements to build/my_robot_gui/my_robot_gui.egg-info/requires.txt
+[0.786s] writing top-level names to build/my_robot_gui/my_robot_gui.egg-info/top_level.txt
+[0.786s] writing manifest file 'build/my_robot_gui/my_robot_gui.egg-info/SOURCES.txt'
+[0.786s] reading manifest file 'build/my_robot_gui/my_robot_gui.egg-info/SOURCES.txt'
+[0.787s] writing manifest file 'build/my_robot_gui/my_robot_gui.egg-info/SOURCES.txt'
+[0.787s] running build
+[0.787s] running build_py
+[0.787s] creating /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build
+[0.788s] creating /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib
+[0.788s] creating /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.788s] copying my_robot_gui/pose_subscriber.py -> /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.788s] copying my_robot_gui/test_gui.py -> /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.788s] copying my_robot_gui/__init__.py -> /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.789s] copying my_robot_gui/testgui.py -> /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.789s] copying my_robot_gui/teleop_turtlesim.py -> /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.789s] copying my_robot_gui/draw_circle.py -> /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui
+[0.789s] running install
+[0.789s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.789s]   warnings.warn(
+[0.790s] running install_lib
+[0.790s] creating /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.791s] copying /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui/pose_subscriber.py -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.791s] copying /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui/test_gui.py -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.791s] copying /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui/__init__.py -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.791s] copying /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui/testgui.py -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.791s] copying /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui/teleop_turtlesim.py -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.791s] copying /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build/lib/my_robot_gui/draw_circle.py -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui
+[0.792s] byte-compiling /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui/pose_subscriber.py to pose_subscriber.cpython-310.pyc
+[0.794s] byte-compiling /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui/test_gui.py to test_gui.cpython-310.pyc
+[0.794s] byte-compiling /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui/__init__.py to __init__.cpython-310.pyc
+[0.795s] byte-compiling /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui/testgui.py to testgui.cpython-310.pyc
+[0.795s] byte-compiling /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui/teleop_turtlesim.py to teleop_turtlesim.cpython-310.pyc
+[0.795s] byte-compiling /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui/draw_circle.py to draw_circle.cpython-310.pyc
+[0.795s] running install_data
+[0.796s] creating /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/share/ament_index
+[0.796s] creating /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/share/ament_index/resource_index
+[0.796s] creating /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/share/ament_index/resource_index/packages
+[0.796s] copying resource/my_robot_gui -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/share/ament_index/resource_index/packages
+[0.796s] copying package.xml -> /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/share/my_robot_gui
+[0.796s] running install_egg_info
+[0.798s] Copying build/my_robot_gui/my_robot_gui.egg-info to /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages/my_robot_gui-0.0.0-py3.10.egg-info
+[0.799s] running install_scripts
+[0.814s] Installing draw_circle script to /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/my_robot_gui
+[0.815s] Installing pose_subscriber script to /home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/my_robot_gui
+[0.815s] writing list of installed files to '/home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/install.log'
+[0.847s] Invoked command in '/home/sreylenchab/DCLAB/my_robot_gui' returned '0': PYTHONPATH=/home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/prefix_override:/home/sreylenchab/DCLAB/my_robot_gui/install/my_robot_gui/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/my_robot_gui build --build-base /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/build install --record /home/sreylenchab/DCLAB/my_robot_gui/build/my_robot_gui/install.log --install-scripts $base/lib/my_robot_gui --single-version-externally-managed
