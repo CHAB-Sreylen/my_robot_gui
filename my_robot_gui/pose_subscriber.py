@@ -6,13 +6,18 @@ from std_msgs.msg import String
 import rclpy
 from rclpy.node import Node
 
+#=============== Camera ================
+import cv2
+from PIL import Image, ImageTk
+
+
 from std_msgs.msg import Int32
 from .data_publisher import DataPublisher
 from .draw_circle import DrawCircleNode
 from rclpy.executors import MultiThreadedExecutor
 
 class MyGUI:
-    def __init__(self, data_publisher_node=None):
+    def __init__(self, data_publisher_node=None, video_source=0):
 
         # Create the main window
         self.root = tk.Tk()
@@ -53,23 +58,41 @@ class MyGUI:
         self.label_sensor = tk.Label(self.frame_sensor, text="Sensor Camera:", bg='white', font=('Times 20'))
         self.label_sensor.pack(pady=10)
         
-        self.Gyro = tk.Label(self.root, text="Gyro rate wz", font=("Times 11"), bg='white' )
-        self.Gyro.place(x=480, y=180)
+        # self.Gyro = tk.Label(self.root, text="Gyro rate wz", font=("Times 11"), bg='white' )
+        # self.Gyro.place(x=480, y=180)
         
-        self.MagneMx = tk.Label(self.root, text="Magnetometer Mx", font=("Times 11"), bg='white' )
-        self.MagneMx.place(x=750, y=180)
+        # self.MagneMx = tk.Label(self.root, text="Magnetometer Mx", font=("Times 11"), bg='white' )
+        # self.MagneMx.place(x=750, y=180)
         
-        self.MagneMy = tk.Label(self.root, text="Magnetometer My", font=("Times 11"), bg='white' )
-        self.MagneMy.place(x=1050, y=180)
+        # self.MagneMy = tk.Label(self.root, text="Magnetometer My", font=("Times 11"), bg='white' )
+        # self.MagneMy.place(x=1050, y=180)
         
-        self.pro1 = tk.Label(self.root, text="Proximity 1", font=("Times 11"), bg='white' )
-        self.pro1.place(x=480, y=230)
+        # self.pro1 = tk.Label(self.root, text="Proximity 1", font=("Times 11"), bg='white' )
+        # self.pro1.place(x=480, y=230)
         
-        self.pro2 = tk.Label(self.root, text="Proximity 2", font=("Times 11"), bg='white' )
-        self.pro2.place(x=750, y=230)
+        # self.pro2 = tk.Label(self.root, text="Proximity 2", font=("Times 11"), bg='white' )
+        # self.pro2.place(x=750, y=230)
         
-        self.pro3 = tk.Label(self.root, text="Proximity 3", font=("Times 11"), bg='white' )
-        self.pro3.place(x=1050, y=230)
+        # self.pro3 = tk.Label(self.root, text="Proximity 3", font=("Times 11"), bg='white' )
+        # self.pro3.place(x=1050, y=230)
+        self.video_source = video_source
+        self.vid = cv2.VideoCapture(self.video_source)
+
+        # Create a canvas that can fit the above video source size
+        self.canvas = tk.Canvas(self.root, width=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH), 
+                                height=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        self.canvas.pack()
+
+        # Button to start webcam
+        self.btn_start = tk.Button(self.root, text="Start", width=10, command=self.start_webcam)
+        self.btn_start.pack(anchor=tk.CENTER, expand=True)
+
+        # Button to stop webcam
+        self.btn_stop = tk.Button(self.root, text="Stop", width=10, command=self.stop_webcam)
+        self.btn_stop.pack(anchor=tk.CENTER, expand=True)
+
+        self.delay = 10
+        self.update()
         
         
         #Create frame of area
@@ -122,7 +145,23 @@ class MyGUI:
         self.button_start.pack(side=tk.LEFT, padx=5)
         self.button_start.place(x=30, y=676, width=120, height=40)
         self.button_start["state"] = "normal"
+    
+    def start_webcam(self):
+        self.vid = cv2.VideoCapture(self.video_source)
 
+    def stop_webcam(self):
+        if self.vid.isOpened():
+            self.vid.release()
+
+    def update(self):
+        # Get a frame from the video source
+        ret, frame = self.vid.read()
+        if ret:
+            self.photo = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
+            self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
+        self.root.after(self.delay, self.update)
+    #===end Camera===
+    
     def run(self):
         self.root.mainloop()
         
@@ -228,11 +267,11 @@ def start_ros_node(gui):
 
 
 def main():
-    gui = MyGUI()
+    video_source = 0  # Provide the appropriate video source value
+    gui = MyGUI(video_source=video_source)
     gui.node = threading.Thread(target=start_ros_node, args=(gui,))
     gui.node.start()
     gui.run()
-
 
 if __name__ == "__main__":
     main()
