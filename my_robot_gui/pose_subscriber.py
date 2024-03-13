@@ -5,6 +5,7 @@ from turtlesim.msg import Pose
 from std_msgs.msg import String
 import rclpy
 from rclpy.node import Node
+from std_msgs.msg import Int32MultiArray
 
 #=============== Camera ================
 import cv2
@@ -25,6 +26,15 @@ class MyGUI:
         
         #return value to publish
         self.cw = True
+        
+        #value of button start, if value true it started
+        self.start_value = False
+        
+        #value of button retry, if value false it retried
+        self.retry_value = True
+        
+        #Team color, True = red, false = blue
+        self.color_value = True
 
         # Set the window size
         window_width, window_height = 1366, 768
@@ -123,7 +133,7 @@ class MyGUI:
                 x_loc = x_loc + 190
                 z = z + 1
         #Create button retry
-        self.button_retry = tk.Button(self.root, text='Retry', font=('Times 15'))
+        self.button_retry = tk.Button(self.root, text='Retry', command=self.toggle_button_retry, font=('Times 15'))
         self.button_retry.place(x=190, y=676, width=120, height=40)
         self.button_retry.configure(bg='white')
         self.button_retry["state"] = "normal"
@@ -141,7 +151,7 @@ class MyGUI:
         self.button_blue["state"] = "normal"
 
         # Create the Start button
-        self.button_start = tk.Button(self.root, text="Start", command=self.toggle_button4, bg="white", font=('Times 15'))
+        self.button_start = tk.Button(self.root, text="Start", command=self.toggle_button_start, bg="white", font=('Times 15'))
         self.button_start.pack(side=tk.LEFT, padx=5)
         self.button_start.place(x=30, y=676, width=120, height=40)
         self.button_start["state"] = "normal"
@@ -175,27 +185,38 @@ class MyGUI:
             self.button_connected["bg"] = "blue"
 
     def toggle_button2(self):
-        if self.button_blue["text"] == "Blue":
+        
+        self.color_value = not self.color_value
+        if self.color_value:
             self.button_blue["text"] = "Red"
             self.button_blue["bg"] = "red"
         else:
             self.button_blue["text"] = "Blue"
             self.button_blue["bg"] = "blue"
 
-    def toggle_button4(self):
-        self.cw = not self.cw
-        if self.cw:
-            self.button_start.config(text="Started")
+    def toggle_button_start(self):
+        # self.cw = not self.cw
+        self.start_value = not self.start_value
+        if self.start_value:
+            self.retry_value = False
+            self.button_start.config(text="Started", bg='green')
         else:
-            self.button_start.config(text="Start")
-
+            self.button_start.config(text="Start", bg='red')
+    
+    def toggle_button_retry(self):
+        self.retry_value = not self.retry_value
+        if self.retry_value:
+            self.start_value = False
+            self.button_retry.config(text="Retried", bg='blue')
+        else:
+            self.button_retry.config(text="Retry", bg='red')
 
 class ROSNode(Node):
     def __init__(self, gui: MyGUI):
         super().__init__("ros_node")
         self.gui = gui
         
-        self.subscription_num = self.create_subscription(Int32, '/number_topic', self.number_callback, 10)
+        self.subscription_num = self.create_subscription(Int32MultiArray, '/array_number', self.number_callback, 10)
 
         # Create a subscriber to receive data from turtlesim
         self.subscription = self.create_subscription(
@@ -204,24 +225,29 @@ class ROSNode(Node):
     
     def number_callback(self, msg):
         number = msg.data
-        def sreylen(number):
-            if number == 1:
-                self.gui.lbl_number_val.config(text="Hello", bg="blue", fg="white") # Set value to label name=lbl_number_val = Hello , background= "Blue" and text color="white"
-            elif number == 2:
-                self.gui.lbl_number_val.config(text="Test1", bg="green", fg="white")
-            elif number == 3:
-                self.gui.lbl_number_val.config(text="Test2", bg="yellow", fg="black")
-            elif number == 4:
-                self.gui.lbl_number_val.config(text="Test3", bg="green", fg="white")
-            elif number == 5:
-                self.gui.lbl_number_val.config(text="Test4", bg="red", fg="white")
-            elif number == 6:
-                self.gui.lbl_number_val.config(text="Test5", bg="green", fg="white")
-            else:
-                self.gui.lbl_number_val.config(text="Test6")
-        #self.gui.lbl_number_val.config(text=f"Number: {msg.data} ")
-        sreylen(number)
-        self.gui.label_area.config(text=f"Area {number}") # Set value to label_area + value of number
+        start_value = number[0]
+        retry_value = number[1]
+        color_value = number[2]
+        
+        print(number)
+        
+        if(start_value == 1):
+            self.gui.button_start.config(text=' Started', fg='white', bg='green')
+        else:
+            self.gui.button_start.config(text=' Start', fg='black', bg='red')
+            
+        if(retry_value == 1):
+            self.gui.button_retry.config(text='Retried', fg='white', bg='green')
+        else:
+            self.gui.button_retry.config(text='Retry', fg='black', bg='red')
+            
+        if(color_value == 1):
+            self.gui.button_blue.config(text='Blue', fg='white', bg='blue')
+        else:
+            self.gui.button_blue.config(text='Red', fg='black', bg='red')
+        
+        
+        # self.gui.label_area.config(text=f"Area {number}") # Set value to label_area + value of number
 
     def pose_callback(self, msg):
         # print(msg)
@@ -232,12 +258,12 @@ class ROSNode(Node):
         self.gui.lbl_y_val.config(text=f"y : {msg.y:.1f} mm")
         self.gui.lbl_theta_val.config(text=f"yaw angle : {msg.theta:.1f} degree")
         
-        if (msg.x < 2):
-            self.gui.button_blue.config(text='blue', bg="blue")
-        elif (msg.x <4):
-            self.gui.button_blue.config(text='red', bg='red')
-        else:
-            self.gui.button_blue.config(text='yellow', bg='yellow')
+        # if (msg.x < 2):
+        #     self.gui.button_blue.config(text='blue', bg="blue")
+        # elif (msg.x <4):
+        #     self.gui.button_blue.config(text='red', bg='red')
+        # else:
+        #     self.gui.button_blue.config(text='yellow', bg='yellow')
 
     def send_command(self, command):
         msg = String()
