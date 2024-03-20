@@ -23,7 +23,6 @@ class DataPublisher(Node):
         
         # array of msg.data[0] for start , msg.data[1] for retrying, msg.data[2] for color 
         msg.data = [self.start_value, self.retry_value, self.color_value]
-        self.publish_arr.publish(msg)
         # print("Publish Number: ", msg.data)
         # self.counter += 1
         
@@ -42,26 +41,8 @@ class DataPublisher(Node):
                 self.color_value = 1
             else:
                 self.color_value = 0
-    
-    # def publish_number(self):
-    #     msg = Int32()
-    #     msg.data = self.counter
-    #     # self.publisher_.publish(msg)
-    #     # print("Publish Number: ", msg.data)
-    #     self.counter += 1
-    #     # if self.counter > 3:
-    #     #     self.counter = 1       # reset counter if it exceeds 3
         
-    #     if self.gui is not None:
-    #         if self.gui.cw:
-    #             if self.counter > 3:
-    #                 self.counter = 1
-    #         else:
-    #             if self.counter > 6:
-    #                 self.counter = 4
-                    
-    #     self.publisher_.publish(msg)
-    #     print("Publish Number: ", msg.data)
+        self.publish_arr.publish(msg)
                      
 def main(args=None):
     rclpy.init(args=args)

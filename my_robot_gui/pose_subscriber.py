@@ -160,7 +160,12 @@ class ROSNode(Node):
         super().__init__("ros_node")
         self.gui = gui
         
-        self.subscription_num = self.create_subscription(Int32MultiArray, '/array_number', self.number_callback, 10)
+        # Create a subscriber from data_Publisher
+        self.subscription_num = self.create_subscription(
+            Int32MultiArray, 
+            '/array_number', 
+            self.number_callback, 10
+        )
 
         # Create a subscriber to receive data from turtlesim
         self.subscription = self.create_subscription(
